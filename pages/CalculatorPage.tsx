@@ -1,12 +1,12 @@
-
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { CALCULATORS } from '../constants';
 import SeoManager from '../components/SeoManager';
-import { AdPlaceholder } from '../components/AdPlaceholder';
 import type { AdContextType, BackupData } from '../types';
 import { AdContext } from '../App';
-import { ArrowDownTrayIcon, ShareIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import { ArrowDownTrayIcon, ShareIcon } from '@heroicons/react/24/outline';
+import { CALCULATOR_DESCRIPTIONS } from '../components/calculatorDescriptions';
+import { AdPlaceholder } from '../components/AdPlaceholder';
 
 
 const CalculatorPage = () => {
@@ -27,6 +27,12 @@ const CalculatorPage = () => {
       navigate(location.pathname, { replace: true, state: null });
     }
   }, [restoredState, location.pathname, navigate]);
+  
+  // Reset result when slug changes
+  useEffect(() => {
+    setResult('');
+    setInputs({});
+  }, [slug]);
 
   const handleCalculation = (newInputs: Record<string, any>, newResult: string) => {
     setResult(newResult);
@@ -34,6 +40,7 @@ const CalculatorPage = () => {
     try {
       localStorage.setItem(`${slug}_result`, JSON.stringify({ inputs: newInputs, result: newResult }));
       adContext.registerCalculation();
+      // FIX: Added error parameter to the catch block to resolve 'Cannot find name 'error''.
     } catch (error) {
       console.error("Error saving to localStorage", error);
     }
@@ -85,6 +92,50 @@ const CalculatorPage = () => {
     }
   }, [result, inputs, slug, calculator?.name]);
 
+  const renderResult = () => {
+      const hasMultipleParts = result.includes('|');
+      const parts = hasMultipleParts ? result.split('|').map(p => p.trim()) : [];
+      
+      const renderableParts = parts.map(part => {
+          const splitPoint = part.indexOf(':');
+          if (splitPoint === -1) return { label: '', value: part };
+          return {
+              label: part.substring(0, splitPoint).trim(),
+              value: part.substring(splitPoint + 1).trim()
+          };
+      });
+
+      return (
+         <div className="mt-8 animate-[fadeIn_0.5s_ease-in-out]">
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Result</h3>
+                
+                {hasMultipleParts ? (
+                    <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
+                        {renderableParts.map((part, index) => (
+                            <div key={index} className="flex flex-col">
+                                <dt className="text-sm text-slate-500 dark:text-slate-400">{part.label}</dt>
+                                <dd className="text-xl font-semibold text-slate-800 dark:text-slate-200">{part.value}</dd>
+                            </div>
+                        ))}
+                    </dl>
+                ) : (
+                    <p className="text-4xl font-bold text-primary-600 dark:text-primary-300 break-words">{result}</p>
+                )}
+
+                <div className="flex items-center gap-2 mt-6">
+                    <button onClick={shareResult} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                        <ShareIcon className="w-4 h-4" /> Share
+                    </button>
+                    <button onClick={downloadResult} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                        <ArrowDownTrayIcon className="w-4 h-4" /> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+      )
+  }
+
 
   if (!calculator) {
     return <div className="text-center text-red-500">Calculator not found!</div>;
@@ -118,22 +169,20 @@ const CalculatorPage = () => {
             slug={slug!}
         />
 
-        {result && (
-          <div className="mt-6 p-6 bg-primary-50 dark:bg-slate-700 rounded-lg">
-            <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-2">Result</h3>
-            <p className="text-2xl font-bold text-primary-600 dark:text-primary-200 break-words">{result}</p>
-            <div className="flex items-center gap-2 mt-4">
-               <button onClick={shareResult} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-600 rounded-md hover:bg-slate-300 dark:hover:bg-slate-500 transition-colors">
-                 <ShareIcon className="w-4 h-4" /> Share
-               </button>
-               <button onClick={downloadResult} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-600 rounded-md hover:bg-slate-300 dark:hover:bg-slate-500 transition-colors">
-                 <ArrowDownTrayIcon className="w-4 h-4" /> Download
-               </button>
-            </div>
-          </div>
-        )}
+        {result && renderResult()}
         
-        <AdPlaceholder type="banner" />
+        <div className="my-8">
+            <AdPlaceholder type="banner" adSlotId="8821587979" />
+        </div>
+        
+        {CALCULATOR_DESCRIPTIONS[calculator.slug] && (
+            <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
+                <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4">About the {calculator.name}</h2>
+                <div className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {CALCULATOR_DESCRIPTIONS[calculator.slug]}
+                </div>
+            </div>
+        )}
       </div>
     </div>
   );
