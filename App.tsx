@@ -4,6 +4,10 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CalculatorPage from './pages/CalculatorPage';
 import BackupPage from './pages/BackupPage';
+import AboutUsPage from './pages/AboutUsPage';
+import TermsOfUsePage from './pages/TermsOfUsePage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import FeedbackPage from './pages/FeedbackPage';
 import Layout from './components/Layout';
 import type { Theme, ThemeContextType, AdContextType } from './types';
 import { AdPlaceholder } from './components/AdPlaceholder';
@@ -70,6 +74,10 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/calculators/:slug" element={<CalculatorPage />} />
               <Route path="/backup" element={<BackupPage />} />
+              <Route path="/about" element={<AboutUsPage />} />
+              <Route path="/terms" element={<TermsOfUsePage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
             </Routes>
           </Layout>
         </HashRouter>

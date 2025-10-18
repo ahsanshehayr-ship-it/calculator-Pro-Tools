@@ -14,7 +14,8 @@ export interface Calculator {
   description: string;
   keywords: string[];
   category: CalculatorCategory;
-  component: React.ComponentType;
+  // FIX: Updated the component type to expect CalculatorProps, ensuring type safety and fixing the overload error.
+  component: React.ComponentType<CalculatorProps>;
   // FIX: Replaced `JSX.Element` with `React.ReactElement` to resolve issue with JSX namespace not being found in a .ts file.
   icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
 }
@@ -36,4 +37,12 @@ export interface BackupData {
   inputs: Record<string, any>;
   result: string;
   timestamp: string;
+}
+
+// FIX: Added CalculatorProps interface here to be used by all calculator components.
+export interface CalculatorProps {
+  onCalculate: (inputs: Record<string, any>, result: string) => void;
+  onReset: () => void;
+  restoredData?: BackupData;
+  slug: string;
 }

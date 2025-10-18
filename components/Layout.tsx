@@ -1,10 +1,12 @@
+
 import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ThemeContext } from '../App';
 import type { ThemeContextType } from '../types';
 import { CALCULATORS } from '../constants';
 import { CalculatorCategory } from '../types';
-import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, HomeIcon } from '@heroicons/react/24/solid';
+import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, HomeIcon, InformationCircleIcon, ChatBubbleLeftRightIcon, DocumentTextIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { CalculatorIcon as SolidCalculatorIcon } from '@heroicons/react/24/solid';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { theme, toggleTheme } = useContext(ThemeContext) as ThemeContextType;
@@ -15,12 +17,19 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     calculators: CALCULATORS.filter(c => c.category === category),
   }));
 
+  const infoLinks = [
+    { name: 'About Us', path: '/about', icon: InformationCircleIcon },
+    { name: 'Feedback', path: '/feedback', icon: ChatBubbleLeftRightIcon },
+    { name: 'Terms of Use', path: '/terms', icon: DocumentTextIcon },
+    { name: 'Privacy Policy', path: '/privacy', icon: ShieldCheckIcon },
+  ];
+
   const SidebarContent = () => (
     <>
      <div className="p-4 border-b border-slate-200 dark:border-slate-700">
         <Link to="/" className="flex items-center gap-2" onClick={() => setSidebarOpen(false)}>
           <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-            <CalculatorIcon className="w-5 h-5 text-white" />
+            <SolidCalculatorIcon className="w-5 h-5 text-white" />
           </div>
           <h1 className="text-xl font-bold text-slate-800 dark:text-slate-200">Calculator Pro</h1>
         </Link>
@@ -56,6 +65,26 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           ))}
         </div>
       ))}
+       <div>
+            <h3 className="px-4 mt-4 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Information</h3>
+            {infoLinks.map((link) => (
+                 <NavLink
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => setSidebarOpen(false)}
+                    className={({ isActive }) =>
+                        `flex items-center px-4 py-2 text-sm font-medium rounded-md transition-colors duration-150 ${
+                        isActive
+                            ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-200'
+                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                        }`
+                    }
+                    >
+                    <link.icon className="w-5 h-5 mr-3" />
+                    {link.name}
+                </NavLink>
+            ))}
+       </div>
     </nav>
     </>
   );
@@ -87,21 +116,20 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             {theme === 'light' ? <MoonIcon className="h-6 w-6" /> : <SunIcon className="h-6 w-6" />}
           </button>
         </header>
-        <main className="flex-1 overflow-y-auto p-4 md:p-8">
-          {children}
+        <main className="flex-1 flex flex-col overflow-y-auto p-4 md:p-8">
+          <div className="flex-grow">
+            {children}
+          </div>
+          <footer className="text-center text-sm text-slate-500 dark:text-slate-400 py-4 mt-auto border-t border-slate-200 dark:border-slate-700 space-x-4">
+              <Link to="/about" className="hover:text-primary-500 hover:underline">About Us</Link>
+              <Link to="/feedback" className="hover:text-primary-500 hover:underline">Feedback</Link>
+              <Link to="/terms" className="hover:text-primary-500 hover:underline">Terms of Use</Link>
+              <Link to="/privacy" className="hover:text-primary-500 hover:underline">Privacy Policy</Link>
+          </footer>
         </main>
       </div>
     </div>
   );
 };
-
-// Dummy Icon to prevent error if not all icons are imported
-const CalculatorIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25v-.008Zm2.25-4.5h.008v.008H10.5v-.008Zm0 2.25h.008v.008H10.5v-.008Zm0 2.25h.008v.008H10.5v-.008Zm2.25-4.5h.008v.008H12.75v-.008Zm0 2.25h.008v.008H12.75v-.008Zm0 2.25h.008v.008H12.75v-.008Z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h15.75c.621 0 1.125.504 1.125 1.125v6.75C21 20.496 20.496 21 19.875 21H4.125A1.125 1.125 0 0 1 3 19.875v-6.75Z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.625C3 8.004 3.504 7.5 4.125 7.5h15.75c.621 0 1.125.504 1.125 1.125v.375c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 0 1 3 9V8.625Z" />
-    </svg>
-  );
 
 export default Layout;
