@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // FIX: Imported CalculatorProps from the central types file and removed the local definition.
-import type { BackupData, CalculatorProps } from '../../types';
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import type { BackupData, CalculatorProps, AdContextType } from '../../types';
+import { ArrowPathIcon, LightBulbIcon } from '@heroicons/react/24/outline';
+import { AdContext } from '../../App';
 
-const inputClass = "w-full px-4 py-2 text-lg bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500";
-const labelClass = "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1";
-const buttonClass = "w-full px-4 py-3 text-base font-semibold text-white bg-primary-600 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 transition-colors";
-const resetButtonClass = "w-full px-4 py-3 text-base font-semibold text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-600 rounded-md hover:bg-slate-300 dark:hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:focus:ring-offset-slate-800 transition-colors";
-const selectClass = "w-full px-4 py-2 text-lg bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500";
+const inputClass = "w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-colors duration-300";
+const labelClass = "block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2";
+const buttonClass = "w-full px-4 py-3 text-base font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg shadow-md hover:shadow-lg hover:from-primary-600 hover:to-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 transition-all duration-300 transform hover:-translate-y-0.5";
+const resetButtonClass = "w-full px-4 py-3 text-base font-semibold text-slate-700 dark:text-slate-200 bg-transparent border-2 border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:focus:ring-offset-slate-800 transition-colors";
+const selectClass = "w-full px-4 py-3 text-base bg-slate-50 dark:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-colors duration-300";
 
 
 // A generic function to load from local storage
@@ -76,7 +77,7 @@ export const BmiCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
         <label htmlFor="weight" className={labelClass}>Weight (kg)</label>
         <input type="number" id="weight" value={weight} onChange={(e) => setWeight(e.target.value)} className={inputClass} placeholder="e.g., 70" />
       </div>
-      <div className="grid grid-cols-2 gap-4 pt-2">
+      <div className="grid grid-cols-2 gap-4 pt-4">
         <button onClick={reset} className={resetButtonClass}>Reset</button>
         <button onClick={calculate} className={buttonClass}>Calculate</button>
       </div>
@@ -132,7 +133,7 @@ export const TipCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
         <label htmlFor="people" className={labelClass}>Number of People</label>
         <input type="number" id="people" value={people} onChange={(e) => setPeople(e.target.value)} className={inputClass} min="1" step="1" />
       </div>
-      <div className="grid grid-cols-2 gap-4 pt-2">
+      <div className="grid grid-cols-2 gap-4 pt-4">
         <button onClick={reset} className={resetButtonClass}>Reset</button>
         <button onClick={calculate} className={buttonClass}>Calculate</button>
       </div>
@@ -201,7 +202,7 @@ export const LoanCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset
         <label htmlFor="term" className={labelClass}>Loan Term (Years)</label>
         <input type="number" id="term" value={term} onChange={(e) => setTerm(e.target.value)} className={inputClass} placeholder="e.g., 30" />
       </div>
-      <div className="grid grid-cols-2 gap-4 pt-2">
+      <div className="grid grid-cols-2 gap-4 pt-4">
         <button onClick={reset} className={resetButtonClass}>Reset</button>
         <button onClick={calculate} className={buttonClass}>Calculate</button>
       </div>
@@ -258,7 +259,7 @@ export const AgeCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
                 <label htmlFor="dob" className={labelClass}>Date of Birth</label>
                 <input type="date" id="dob" value={dob} onChange={(e) => setDob(e.target.value)} className={inputClass} />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -342,7 +343,7 @@ export const BmrCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
         <label htmlFor="weight" className={labelClass}>Weight (kg)</label>
         <input type="number" id="weight" value={weight} onChange={(e) => setWeight(e.target.value)} className={inputClass} placeholder="e.g., 70" />
       </div>
-      <div className="grid grid-cols-2 gap-4 pt-2">
+      <div className="grid grid-cols-2 gap-4 pt-4">
         <button onClick={reset} className={resetButtonClass}>Reset</button>
         <button onClick={calculate} className={buttonClass}>Calculate</button>
       </div>
@@ -398,7 +399,7 @@ export const IdealWeightCalculator: React.FC<CalculatorProps> = ({ onCalculate, 
                     <option value="female">Female</option>
                 </select>
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -439,7 +440,7 @@ export const HeartRateCalculator: React.FC<CalculatorProps> = ({ onCalculate, on
                 <label htmlFor="age" className={labelClass}>Age</label>
                 <input type="number" id="age" value={age} onChange={(e) => setAge(e.target.value)} className={inputClass} placeholder="e.g., 30" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -493,7 +494,7 @@ export const WaterIntakeCalculator: React.FC<CalculatorProps> = ({ onCalculate, 
                     <option value="active">Active (Running, HIIT)</option>
                 </select>
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -567,7 +568,7 @@ export const CompoundInterestCalculator: React.FC<CalculatorProps> = ({ onCalcul
                     <option value="365">Daily</option>
                 </select>
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -621,7 +622,7 @@ export const SimpleInterestCalculator: React.FC<CalculatorProps> = ({ onCalculat
                 <label htmlFor="years" className={labelClass}>Number of Years</label>
                 <input type="number" id="years" value={years} onChange={(e) => setYears(e.target.value)} className={inputClass} placeholder="e.g., 10" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -666,7 +667,7 @@ export const RoiCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
                 <label htmlFor="final" className={labelClass}>Final Value ($)</label>
                 <input type="number" id="final" value={final} onChange={(e) => setFinal(e.target.value)} className={inputClass} placeholder="e.g., 1200" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -711,7 +712,7 @@ export const TaxCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
                 <label htmlFor="rate" className={labelClass}>Tax Rate (%)</label>
                 <input type="number" id="rate" value={rate} onChange={(e) => setRate(e.target.value)} className={inputClass} placeholder="e.g., 20" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -756,7 +757,7 @@ export const DiscountCalculator: React.FC<CalculatorProps> = ({ onCalculate, onR
                 <label htmlFor="discount" className={labelClass}>Discount (%)</label>
                 <input type="number" id="discount" value={discount} onChange={(e) => setDiscount(e.target.value)} className={inputClass} placeholder="e.g., 25" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -864,7 +865,7 @@ export const ProfitMarginCalculator: React.FC<CalculatorProps> = ({ onCalculate,
                 <label htmlFor="revenue" className={labelClass}>Total Revenue ($)</label>
                 <input type="number" id="revenue" value={revenue} onChange={(e) => setRevenue(e.target.value)} className={inputClass} placeholder="e.g., 100" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -916,7 +917,7 @@ export const BreakEvenCalculator: React.FC<CalculatorProps> = ({ onCalculate, on
                 <label htmlFor="price" className={labelClass}>Selling Price Per Unit ($)</label>
                 <input type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} className={inputClass} placeholder="e.g., 10" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -970,7 +971,7 @@ export const SipCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
                 <label htmlFor="years" className={labelClass}>Investment Period (Years)</label>
                 <input type="number" id="years" value={years} onChange={(e) => setYears(e.target.value)} className={inputClass} placeholder="e.g., 10" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1033,7 +1034,7 @@ export const DateDifferenceCalculator: React.FC<CalculatorProps> = ({ onCalculat
                 <label htmlFor="end" className={labelClass}>End Date</label>
                 <input type="date" id="end" value={end} onChange={(e) => setEnd(e.target.value)} className={inputClass} />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1078,7 +1079,7 @@ export const FuelConsumptionCalculator: React.FC<CalculatorProps> = ({ onCalcula
                 <label htmlFor="fuel" className={labelClass}>Fuel Used (liters)</label>
                 <input type="number" id="fuel" value={fuel} onChange={(e) => setFuel(e.target.value)} className={inputClass} placeholder="e.g., 30" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1125,7 +1126,7 @@ export const TravelTimeCalculator: React.FC<CalculatorProps> = ({ onCalculate, o
                 <label htmlFor="speed" className={labelClass}>Average Speed (km/h)</label>
                 <input type="number" id="speed" value={speed} onChange={(e) => setSpeed(e.target.value)} className={inputClass} placeholder="e.g., 80" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1322,7 +1323,7 @@ export const PercentageCalculator: React.FC<CalculatorProps> = ({ onCalculate, o
                     <input type="number" value={valB} onChange={e => setValB(e.target.value)} className={inputClass} />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1372,11 +1373,11 @@ export const GpaCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset,
                             {Object.keys(gradePoints).map(g => <option key={g} value={g}>{g}</option>)}
                         </select>
                     </div>
-                    <div className="col-span-2">{ index > 0 && <button onClick={() => removeCourse(course.id)} className="w-full h-11 flex items-center justify-center bg-red-500 text-white rounded-md">&times;</button>}</div>
+                    <div className="col-span-2">{ index > 0 && <button onClick={() => removeCourse(course.id)} className="w-full h-12 flex items-center justify-center bg-red-500 text-white rounded-md">&times;</button>}</div>
                 </div>
             ))}
             <button onClick={addCourse} className="w-full text-sm text-primary-600 dark:text-primary-400 p-2">+ Add Course</button>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1423,7 +1424,7 @@ export const GradePercentageCalculator: React.FC<CalculatorProps> = ({ onCalcula
                     <input type="number" value={total} onChange={e => setTotal(e.target.value)} className={inputClass} />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1463,7 +1464,7 @@ export const PaintCalculator: React.FC<CalculatorProps> = ({ onCalculate, onRese
             <div><label className={labelClass}>Total Surface Area (m²)</label><input type="number" value={area} onChange={e => setArea(e.target.value)} className={inputClass} /></div>
             <div><label className={labelClass}>Number of Coats</label><input type="number" value={coats} onChange={e => setCoats(e.target.value)} className={inputClass} /></div>
             <div><label className={labelClass}>Paint Coverage (m²/liter)</label><input type="number" value={coverage} onChange={e => setCoverage(e.target.value)} className={inputClass} /></div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1509,7 +1510,7 @@ export const TileCalculator: React.FC<CalculatorProps> = ({ onCalculate, onReset
                 <div><label className={labelClass}>Tile Width (cm)</label><input type="number" value={tileW} onChange={e => setTileW(e.target.value)} className={inputClass} /></div>
             </div>
             <div><label className={labelClass}>Wastage (%)</label><input type="number" value={waste} onChange={e => setWaste(e.target.value)} className={inputClass} /></div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
             </div>
@@ -1547,9 +1548,122 @@ export const ConcreteVolumeCalculator: React.FC<CalculatorProps> = ({ onCalculat
             <div><label className={labelClass}>Length (m)</label><input type="number" value={length} onChange={e => setLength(e.target.value)} className={inputClass} /></div>
             <div><label className={labelClass}>Width (m)</label><input type="number" value={width} onChange={e => setWidth(e.target.value)} className={inputClass} /></div>
             <div><label className={labelClass}>Thickness (cm)</label><input type="number" value={thick} onChange={e => setThick(e.target.value)} className={inputClass} /></div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4 pt-4">
                 <button onClick={reset} className={resetButtonClass}>Reset</button>
                 <button onClick={calculate} className={buttonClass}>Calculate</button>
+            </div>
+        </div>
+    );
+};
+
+// Games
+
+export const GuessTheNumberGame: React.FC<CalculatorProps> = ({ onReset }) => {
+    const [secretNumber, setSecretNumber] = useState(Math.floor(Math.random() * 100) + 1);
+    const [guess, setGuess] = useState('');
+    const [feedback, setFeedback] = useState('Guess a number between 1 and 100.');
+    const [attempts, setAttempts] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
+    const [hintUsed, setHintUsed] = useState(false);
+    const adContext = useContext(AdContext) as AdContextType;
+
+    const handleGuess = () => {
+        const numGuess = parseInt(guess, 10);
+        if (isNaN(numGuess)) {
+            setFeedback('Please enter a valid number.');
+            return;
+        }
+
+        setAttempts(prev => prev + 1);
+
+        if (numGuess < secretNumber) {
+            setFeedback('Too low! Try again.');
+        } else if (numGuess > secretNumber) {
+            setFeedback('Too high! Try again.');
+        } else {
+            setFeedback(`You got it in ${attempts + 1} attempts! The number was ${secretNumber}.`);
+            setGameOver(true);
+        }
+        setGuess('');
+    };
+    
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && !gameOver) {
+            handleGuess();
+        }
+    };
+
+    const resetGame = () => {
+        setSecretNumber(Math.floor(Math.random() * 100) + 1);
+        setGuess('');
+        setFeedback('Guess a number between 1 and 100.');
+        setAttempts(0);
+        setGameOver(false);
+        setHintUsed(false);
+        onReset();
+    };
+
+    const giveHint = () => {
+      let hint = '';
+      if (secretNumber % 2 === 0) {
+          hint = 'Hint: The secret number is even.';
+      } else {
+          hint = 'Hint: The secret number is odd.';
+      }
+      setFeedback(hint);
+      setHintUsed(true);
+    };
+
+    const handleGetHint = () => {
+      if (!hintUsed && adContext) {
+          adContext.showRewardedAd(giveHint);
+      }
+    };
+
+    return (
+        <div className="space-y-6 text-center">
+            <p className={`text-lg font-semibold ${gameOver ? 'text-green-500' : 'text-slate-600 dark:text-slate-300'}`}>
+                {feedback}
+            </p>
+            
+            {!gameOver && (
+                <p className="text-sm text-slate-500">
+                    Attempts: {attempts}
+                </p>
+            )}
+
+            <div className="max-w-xs mx-auto">
+                 <input 
+                    type="number" 
+                    value={guess}
+                    onChange={(e) => setGuess(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    className={`${inputClass} text-center text-2xl`}
+                    placeholder="?"
+                    disabled={gameOver}
+                />
+            </div>
+            
+            <div className="max-w-xs mx-auto">
+                {gameOver ? (
+                    <button onClick={resetGame} className={buttonClass}>
+                        Play Again
+                    </button>
+                ) : (
+                    <div className="grid grid-cols-3 gap-2">
+                        <button 
+                            onClick={handleGetHint} 
+                            disabled={hintUsed}
+                            className={`col-span-1 flex items-center justify-center p-3 text-base font-semibold text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-900/50 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 dark:focus:ring-offset-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
+                            title="Get a hint (watch ad)"
+                        >
+                           <LightBulbIcon className="h-6 w-6" />
+                        </button>
+                        <button onClick={handleGuess} className={`${buttonClass} col-span-2`}>
+                            Guess
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

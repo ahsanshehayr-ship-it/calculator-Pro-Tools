@@ -10,9 +10,9 @@ import {
     BreakEvenCalculator, SipCalculator, DateDifferenceCalculator, FuelConsumptionCalculator,
     TravelTimeCalculator, StandardCalculator, ScientificCalculator, UnitConverter,
     PercentageCalculator, GpaCalculator, GradePercentageCalculator, PaintCalculator,
-    TileCalculator, ConcreteVolumeCalculator
+    TileCalculator, ConcreteVolumeCalculator, GuessTheNumberGame
 } from './components/calculators';
-import { BeakerIcon, ScaleIcon, BanknotesIcon, GiftIcon, CakeIcon, VariableIcon, CalculatorIcon, ArrowPathIcon, CurrencyDollarIcon, SunIcon, FireIcon, MapIcon, BuildingOfficeIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { BeakerIcon, ScaleIcon, BanknotesIcon, GiftIcon, CakeIcon, VariableIcon, CalculatorIcon, ArrowPathIcon, CurrencyDollarIcon, SunIcon, FireIcon, MapIcon, BuildingOfficeIcon, UserGroupIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 
 
 export const CALCULATORS: Calculator[] = [
@@ -55,4 +55,7 @@ export const CALCULATORS: Calculator[] = [
   { slug: 'paint-calculator', name: 'Paint Calculator', description: 'Estimate the amount of paint needed.', keywords: ['paint', 'home', 'diy'], category: CalculatorCategory.CONSTRUCTION, component: PaintCalculator, icon: (props) => <BuildingOfficeIcon {...props}/> },
   { slug: 'tile-calculator', name: 'Tile Calculator', description: 'Estimate the number of tiles needed.', keywords: ['tile', 'home', 'diy', 'flooring'], category: CalculatorCategory.CONSTRUCTION, component: TileCalculator, icon: (props) => <BuildingOfficeIcon {...props}/> },
   { slug: 'concrete-volume-calculator', name: 'Concrete Volume Calculator', description: 'Calculate the volume of concrete required.', keywords: ['concrete', 'construction', 'diy'], category: CalculatorCategory.CONSTRUCTION, component: ConcreteVolumeCalculator, icon: (props) => <BuildingOfficeIcon {...props}/> },
+  
+  // Games
+  { slug: 'guess-the-number', name: 'Guess the Number', description: 'A fun game to guess the secret number.', keywords: ['game', 'fun', 'guess', 'number'], category: CalculatorCategory.GAMES, component: GuessTheNumberGame, icon: (props) => <PuzzlePieceIcon {...props}/> },
 ];

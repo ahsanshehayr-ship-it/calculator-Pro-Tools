@@ -6,6 +6,7 @@ export enum CalculatorCategory {
   MATH = 'Math & General',
   CONSTRUCTION = 'Construction & Home',
   LIFESTYLE = 'Lifestyle',
+  GAMES = 'Games',
 }
 
 export interface Calculator {
@@ -29,7 +30,7 @@ export interface ThemeContextType {
 
 export interface AdContextType {
   showInterstitialAd: () => void;
-  registerCalculation: () => void;
+  showRewardedAd: (onReward: () => void) => void;
 }
 
 export interface BackupData {

@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const commonStyles = {
@@ -257,6 +256,19 @@ export const CALCULATOR_DESCRIPTIONS: Record<string, React.ReactNode> = {
       <p className={commonStyles.paragraph}>This calculator helps you determine the volume of concrete needed for a rectangular slab, such as a foundation, patio, or sidewalk.</p>
       <h3 className={commonStyles.heading}>How It Works</h3>
       <p className={commonStyles.paragraph}>Enter the length, width, and thickness of the area you need to fill. The calculator will compute the total volume of concrete required in cubic meters, ensuring you order the right amount for your construction project.</p>
+    </div>
+  ),
+  'guess-the-number': (
+    <div>
+      <p className={commonStyles.paragraph}>Ready for some fun? Guess the Number is a classic game of logic and luck. Test your intuition and see how quickly you can find the secret number!</p>
+      <h3 className={commonStyles.heading}>How to Play</h3>
+      <ul className={commonStyles.list}>
+        <li>The computer will secretly pick a random number between 1 and 100.</li>
+        <li>Enter your guess into the input field.</li>
+        <li>The game will tell you if your guess is too high or too low.</li>
+        <li>Keep guessing until you find the correct number. The goal is to guess it in as few attempts as possible.</li>
+      </ul>
+      <p className={commonStyles.disclaimer}>Good luck, and have fun!</p>
     </div>
   ),
 };

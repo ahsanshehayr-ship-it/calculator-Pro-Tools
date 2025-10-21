@@ -21,16 +21,19 @@ const PrivacyPolicyPage: React.FC = () => {
         <li><strong>Data is Private:</strong> This data is stored only on your computer or mobile device and is never transmitted to our servers or any third party.</li>
         <li><strong>You Are in Control:</strong> You can clear this data at any time by clearing your browser's cache and site data for this application.</li>
       </ul>
-      <h2 className="text-xl font-semibold mt-4 mb-2">Third-Party Advertisements</h2>
-      <p className="mb-4">
-        To keep this Service free, we partner with Google AdMob to display advertisements. AdMob is a third-party service that may collect and use anonymized data to provide personalized ads. This may include information like your device type and general location (e.g., country or city).
-      </p>
-       <p className="mb-4">
-        We encourage you to review <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">Google's Privacy Policy</a> to understand how they handle your data. We do not share any data from the calculator inputs with our advertising partners.
-      </p>
        <h2 className="text-xl font-semibold mt-4 mb-2">Backup & Share Feature</h2>
        <p className="mb-4">
         Our "Share" feature generates a unique link containing your calculation data. This data is encoded directly into the link itself. Anyone you share this link with will be able to see your inputs and results. Do not share these links if they contain sensitive information. The data is not stored on our servers.
+      </p>
+      <h2 className="text-xl font-semibold mt-4 mb-2">Third-Party Advertisements</h2>
+      <p className="mb-4">
+        This application uses Google AdMob to display advertisements. These ads help support the development and maintenance of this free service. Google may use cookies or other tracking technologies to serve personalized ads based on your interests and previous interactions.
+      </p>
+      <p className="mb-4">
+        For more information on how Google collects and uses data, please review{' '}
+        <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-primary-600 dark:text-primary-400 hover:underline">
+          Google's Privacy & Terms
+        </a>.
       </p>
       <h2 className="text-xl font-semibold mt-4 mb-2">Changes to this Privacy Policy</h2>
       <p className="mb-4">
